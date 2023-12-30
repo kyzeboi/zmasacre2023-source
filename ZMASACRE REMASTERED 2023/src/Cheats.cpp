@@ -8,7 +8,6 @@
 #include "main.h"
 
 
-// for renderags()
 struct playerTagInfo
 {
 #pragma pack( 1 )
