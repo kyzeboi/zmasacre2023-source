@@ -1,3 +1,3 @@
 https://discord.gg/qgUrcTdFda
 
-kyze.
+Yenilendi ve güncelleştirilebilir hale getirildi.
