@@ -15,9 +15,6 @@ float accent_color[4] = { 0.745f, 0.151f, 0.151f, 1.000f };
 
 bool active = false;
 
-ImFont* ico = nullptr;
-ImFont* ico_combo = nullptr;
-ImFont* ico_button = nullptr;
 ImFont* default_segu = nullptr;
 ImFont* bold_segu = nullptr;
 ImFont* segu = nullptr;
@@ -32,16 +29,10 @@ void CMenu::AddImGuiSettings()
 
     bold_segu = io.Fonts->AddFontFromMemoryTTF(&bold_segue, sizeof bold_segue, 40, NULL, io.Fonts->GetGlyphRangesCyrillic());
 
-    ico = io.Fonts->AddFontFromMemoryTTF(&icon, sizeof icon, 24, NULL, io.Fonts->GetGlyphRangesCyrillic());
-
     segu = io.Fonts->AddFontFromMemoryTTF(&seguoe, sizeof seguoe, 40, NULL, io.Fonts->GetGlyphRangesCyrillic());
-
-    ico_combo = io.Fonts->AddFontFromMemoryTTF(&icon, sizeof icon, 19, NULL, io.Fonts->GetGlyphRangesCyrillic());
-
-    ico_button = io.Fonts->AddFontFromMemoryTTF(&icon, sizeof icon, 25, NULL, io.Fonts->GetGlyphRangesCyrillic());
 }
 
-
+#define	FILEVERSION	"BETA=0.4"
 void CMenu::RenderMenu()
 {
     if (!ÝmMenu->show)
@@ -56,7 +47,6 @@ void CMenu::RenderMenu()
     {
         ImGui::StyleColorsKyze();
 
-   
 
         const auto& p = ImGui::GetWindowPos();
         const auto& pWindowDrawList = ImGui::GetWindowDrawList();
@@ -118,14 +108,6 @@ void CMenu::RenderMenu()
                 const char* body_types[]{ "Head", "Body", "Foot", "Random"};
                 ImGui::Combo("Silent Aim Hit Region", &silent_body_type, body_types, IM_ARRAYSIZE(body_types));
 
-                /*
-                static int field_derecesi = 1;
-                const char* field[]{ "%50" , "%100" };
-                field_derece_ = (int)field_derecesi;
-
-                ImGui::Combo("Silent Field Of View", &field_derecesi, field, IM_ARRAYSIZE(field));
-                */
-
             }ImGui::EndChild();
 
             ImGui::SetCursorPos(ImVec2(203, 353));
@@ -175,7 +157,7 @@ void CMenu::RenderMenu()
             if (misc_tab == 1)
             {
                 ImGui::SetCursorPos(ImVec2(203, 92));
-                ImGui::BeginChild("Esp", ImVec2(340, 200), true); { //253
+                ImGui::BeginChild("Esp", ImVec2(340, 200), true); {
 
                     static bool test_0 = false;
                     ImGui::Checkbox("Box", &box);
@@ -188,7 +170,7 @@ void CMenu::RenderMenu()
 
 
                 ImGui::SetCursorPos(ImVec2(203, 300));
-                ImGui::BeginChild("Slapper", ImVec2(340, 260), true); { //253
+                ImGui::BeginChild("Slapper", ImVec2(340, 260), true); {
 
                     static bool test_0 = false;
                     ImGui::Checkbox("Actor Slapper", &ActorSlapper);
@@ -201,7 +183,7 @@ void CMenu::RenderMenu()
 
 
                 ImGui::SetCursorPos(ImVec2(570, 92));
-                ImGui::BeginChild("Visual Cheats", ImVec2(355, 215), true); { //253
+                ImGui::BeginChild("Visual Cheats", ImVec2(355, 215), true); {
                     ImGui::SetScrollX(0);
                     ImGui::SetScrollY(0);
                     ImGui::Checkbox("AFK", &afk);
@@ -211,7 +193,7 @@ void CMenu::RenderMenu()
                 }ImGui::EndChild();
 
                 ImGui::SetCursorPos(ImVec2(570, 325));
-                ImGui::BeginChild("BUTTON", ImVec2(355, 235), true); { //253
+                ImGui::BeginChild("BUTTON", ImVec2(355, 235), true); {
 
                     ImGui::SetScrollX(0);
                     ImGui::SetScrollY(0);
@@ -233,10 +215,7 @@ void CMenu::RenderMenu()
             {
 
                 ImGui::SetCursorPos(ImVec2(203, 88));
-                ImGui::BeginChild("Visual Settings", ImVec2(340, 475), true); { //253
-
-
-
+                ImGui::BeginChild("Visual Settings", ImVec2(340, 475), true); {
 
                     static const char* car_colors_items[]{ "Red", "Green", "Black", "Blue", "Purple" };
                     ImGui::Combo("Car Color", &car_color, car_colors_items, IM_ARRAYSIZE(car_colors_items));
@@ -267,12 +246,9 @@ void CMenu::RenderMenu()
 
 
                 ImGui::SetCursorPos(ImVec2(555, 88));
-                ImGui::BeginChild("Visual Cheats", ImVec2(375, 475), true); { //253
-
-
+                ImGui::BeginChild("Visual Cheats", ImVec2(375, 475), true); {
 
                     ImGui::Checkbox("Car Invisible[UP]", &VehiclePosInv);
-
 
                 }ImGui::EndChild();
 
@@ -282,7 +258,7 @@ void CMenu::RenderMenu()
             {
 
                 ImGui::SetCursorPos(ImVec2(203, 88));
-                ImGui::BeginChild("Weapon Cheats", ImVec2(735, 475), true); { //253
+                ImGui::BeginChild("Weapon Cheats", ImVec2(735, 475), true); {
 
 
                     ImGui::Checkbox("No Reload", &NoReload);
@@ -309,7 +285,7 @@ void CMenu::RenderMenu()
         case 2:
         {
             ImGui::SetCursorPos(ImVec2(203, 88));
-            ImGui::BeginChild("Friend", ImVec2(339, 253), true); { //253
+            ImGui::BeginChild("Friend", ImVec2(339, 253), true); {
 
                 ImGui::SetScrollX(0);
                 ImGui::SetScrollY(0);

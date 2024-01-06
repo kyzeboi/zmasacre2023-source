@@ -34,7 +34,7 @@ HRESULT __stdcall CD3DHook::hkPresent(IDirect3DDevice9* pDevice, CONST RECT* pSr
 		// Render Font's 
 		render->Initialize(pDevice);
 
-		// Load Fonts
+		// Load Font's
 		pD3DFont->Initialize(pDevice);
 		pD3DFontFixedSmall->Initialize(pDevice);
 
@@ -77,11 +77,11 @@ HRESULT __stdcall CD3DHook::hkReset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAME
 	{
 		ImGui_ImplDX9_InvalidateDeviceObjects();
 
-		// Font
+		// Font Invalidate
 		pD3DFont->Invalidate();
 		pD3DFontFixedSmall->Invalidate();
 
-		// Render Main
+		// Render Invalidate
 		render->Invalidate();
 
 		pD3DHook->bInit = false;

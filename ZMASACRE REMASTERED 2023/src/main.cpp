@@ -4,14 +4,10 @@
 
 */
 
-//KRONDOR
-//KYZE
-
 #include "main.h"
 
 
 HMODULE					  g_hDllModule = NULL;
-HINSTANCE				  g_hOrigDll   = NULL;
 
 void RenderConfig() {
 
@@ -20,8 +16,6 @@ void RenderConfig() {
 
 int init()
 {
-
-
 	if (GetModuleFileName(g_hDllModule, g_szWorkingDirectory, sizeof(g_szWorkingDirectory) - 32) != 0)
 	{
 		if (strrchr(g_szWorkingDirectory, '\\') != NULL)

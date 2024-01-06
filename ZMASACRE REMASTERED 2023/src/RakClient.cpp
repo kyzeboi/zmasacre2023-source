@@ -51,7 +51,7 @@ bool HookedRakClientInterface::RPC(int* uniqueID, BitStream* parameters, PacketP
 	
 		if (*uniqueID == RPC_ClientJoin)
 		{
-			addMessage(2, "İyi Oyunlar.");
+			addMessage(2, "İyi Oyunlar");
 		}
 
 		if(*uniqueID == RPC_Spawn)
@@ -93,8 +93,6 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 		{
 			if (aimedplayer != -1)
 			{
-
-				//30.11.2022 Düzeltmeler
 				if (RangeShot)
 				{
 					if (kayitliserver)
@@ -106,8 +104,6 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 				}
 				else
 					bullet.byteType = 1;
-
-	
 
 				bullet.sTargetID = aimedplayer;
 
@@ -176,7 +172,7 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 		{
 			if (KEY_DOWN(VK_LBUTTON))
 			{
-				if (IsPlayerFriend(aimedplayer)) //test
+				if (IsPlayerFriend(aimedplayer))
 					return false;
 
 				g_RakClient->SendGiveDamage(aimedplayer, 2.6400001049041748046875, g_Players->pLocalPlayer->byteCurrentWeapon, 3);
@@ -205,11 +201,6 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 
 		if (ActorSlapper)
 		{
-
-			actor_info* deadman = getGTAPedFromSAMPPlayerID(aimedplayer);
-
-			if (!deadman)
-				return false;
 
 			if (IsPlayerFriend(aimedplayer)) //test
 				return false;
@@ -256,7 +247,7 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 
 
 
-		if (antics) // testing
+		if (antics)
 		{
 			onfoot.sSurfingVehicleID = NAN;
 			onfoot.fSurfingOffsets[0] = random_float(-1.00000f, 1.10000f);
@@ -290,8 +281,6 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 		bitStream->Read(packetId);
 		bitStream->Read((PCHAR)&aim, sizeof(stAimData));
 
-
-		//30.11.2022 Düzeltmeler
 		if (RangeShot)
 		{
 			if (!kayitliserver)
@@ -353,8 +342,8 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 
 		if (VehiclePosInv)
 		{
-			vehicle.fPosition[2] = -500.6f;
-			vehicle.fQuaternion[2] = 0.3;
+			vehicle.fPosition[2] = -500.0f;
+			vehicle.fQuaternion[2] = 0.45f;
 
 		}
 
@@ -378,7 +367,7 @@ bool HookedRakClientInterface::Send(BitStream* bitStream, PacketPriority priorit
 						break;
 					case TYPE2:
 						aimed = SAMP_MAX_PLAYERS;
-						if (!IsPlayerStreamed(aimed)) return false; //kyze
+						if (!IsPlayerStreamed(aimed)) return false;
 						break;
 				}
 

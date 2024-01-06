@@ -34,7 +34,7 @@ namespace Discord
 		Discord_ClearPresence(); 
 	}                            
 
-	void update(const time_t time, const char* state, const char* details, const char* image, const char* LargeImText, const char* KucukImage, const char* KucukImText, ...)
+	void update(const time_t time, const char* state, const char* details, const char* BuyukImage, const char* BuyukImText, const char* KucukImage, const char* KucukImText, ...)
 	{
 		
 		{
@@ -42,8 +42,8 @@ namespace Discord
 			discordPresence.state = state;
 			discordPresence.details = details;
 			discordPresence.startTimestamp = time;
-			discordPresence.largeImageKey = image;
-			discordPresence.largeImageText = LargeImText;
+			discordPresence.largeImageKey = BuyukImage;
+			discordPresence.largeImageText = BuyukImText;
 			discordPresence.smallImageKey = KucukImage;
 			discordPresence.smallImageText = KucukImText;
 

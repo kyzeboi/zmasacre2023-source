@@ -6,11 +6,11 @@
 
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN             1
-#define _CRT_SECURE_NO_WARNINGS         1
-#define IMGUI_DEFINE_MATH_OPERATORS     1
-#define _WIN32_WINNT                    0x0600
-#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS 1
+#define _WIN32_WINNT                                0x0600
+#define WIN32_LEAN_AND_MEAN                         1
+#define _CRT_SECURE_NO_WARNINGS                     1
+#define IMGUI_DEFINE_MATH_OPERATORS                 1
+#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS   1
 
 
 // API/SDK includes

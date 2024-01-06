@@ -30,7 +30,6 @@
 #include <map>
 
 extern float accent_color[3];
-extern ImFont* ico;
 extern ImFont* default_segu;
 
 #include <string>
@@ -1052,8 +1051,6 @@ bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool
     return pressed;
 }
 
-extern ImFont* ico_button;
-
 bool ImGui::ButtonEx(const char* label, const ImVec2& size_arg, ImGuiButtonFlags flags)
 {
     ImGuiWindow* window = GetCurrentWindow();
@@ -1171,8 +1168,6 @@ bool ImGui::TabButtonEx(const char* ico, const char* label, const ImVec2& size_a
     if (g.LogEnabled)
         LogSetNextTextDecoration("[", "]");
 
-    PushFont(ico_button);
-
     const int vtx_idx_1 = GetWindowDrawList()->VtxBuffer.Size;
 
     PushStyleVar(ImGuiStyleVar_ButtonTextAlign, ImVec2(0.0f, 0.45f));
@@ -1277,7 +1272,6 @@ bool ImGui::OptButtonEx(const char* ico, const ImVec2& size_arg, bool rotation, 
 
     if (rotation) ImRotateStart();
 
-    ImGui::PushFont(ico_button);
 
     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.30f, 0.30f, 0.30f, 1.00f - it_nameanim->second));
     RenderTextClipped(bb.Min + style.FramePadding, bb.Max - style.FramePadding, ico, NULL, &label_size, style.ButtonTextAlign, &bb);
@@ -2175,8 +2169,6 @@ static float CalcMaxPopupHeightFromItemCount(int items_count)
     return (g.FontSize + g.Style.ItemSpacing.y) * items_count - g.Style.ItemSpacing.y + (g.Style.WindowPadding.y * 2);
 }
 
-extern ImFont* ico_combo;
-
 bool ImGui::BeginCombo(const char* label, const char* preview_value, ImGuiComboFlags flags)
 {
     ImGuiContext& g = *GImGui;
@@ -2251,8 +2243,6 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImGuiComboF
 
     it_hov->second = ImLerp(it_hov->second, popup_open ? -1.f : 1.f, g.IO.DeltaTime * 12.f);
     it_hov->second *= style.Alpha;
-
-    ImGui::PushFont(ico_combo);
 
     ImRotateStart();
     RenderTextClipped(bb.Min + style.FramePadding + ImVec2(110, 1), ImVec2(value_x2 + 50, bb.Max.y), "C", NULL, NULL);
@@ -6206,8 +6196,6 @@ bool ImGui::ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFl
     else
     {
         ImVec4 col_source = (flags & ImGuiColorEditFlags_AlphaPreview) ? col_rgb : col_rgb_without_alpha;
-
-        ImGui::PushFont(ico);
 
         ImGui::PushStyleColor(ImGuiCol_Text, GetColorU32(col_source));
 

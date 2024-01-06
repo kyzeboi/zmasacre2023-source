@@ -7,10 +7,6 @@
 
 #include "main.h"
 
-// ADE32 version 2.02c -- C edition
-#define WIN32_LEAN_AND_MEAN
-#define WIN32_EXTRA_LEAN
-
 
 void *CDetour::Create ( BYTE *orig, const BYTE *det, int iPatchType, int len )
 {

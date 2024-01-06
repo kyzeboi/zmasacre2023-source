@@ -6,10 +6,6 @@
 
 #include "main.h"
 
-#define SAMP_DLL				"samp.dll"
-#define SAMP_CMP03DL			"528D44240C508D7E09E8"
-
-// global samp pointers
 int								g_renderSAMP_initSAMPstructs = 0;
 
 stSAMP*							g_SAMP = nullptr;
@@ -29,6 +25,7 @@ stStreamedOutPlayerInfo			g_stStreamedOutInfo;
 //////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////// FUNCTIONS //////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
 int getVehicleGTAIDFromInterface(DWORD* vehicle)
 {
 	return (int)((DWORD)vehicle - (DWORD)pool_vehicle->start) / 2584;
@@ -48,8 +45,6 @@ void update_translateGTASAMP_vehiclePool(void)
 			continue;
 		if (g_Vehicles->pSAMP_Vehicle[i]->pGTA_Vehicle == nullptr)
 			continue;
-		/*if (isBadPtr_writeAny(g_Vehicles->pSAMP_Vehicle[i], sizeof(stSAMPVehicle)))
-			continue;*/
 		iGTAID = getVehicleGTAIDFromInterface((DWORD*)g_Vehicles->pSAMP_Vehicle[i]->pGTA_Vehicle);
 		if (iGTAID <= SAMP_MAX_VEHICLES && iGTAID >= 0)
 		{
@@ -93,84 +88,6 @@ void update_translateGTASAMP_pedPool(void)
 	}
 }
 
-
-static signed char hex_to_dec(signed char ch)
-{
-	if (ch >= '0' && ch <= '9')
-		return ch - '0';
-	if (ch >= 'A' && ch <= 'F')
-		return ch - 'A' + 10;
-	if (ch >= 'a' && ch <= 'f')
-		return ch - 'A' + 10;
-
-	return -1;
-}
-
-uint8_t* hex_to_bin(const char* str)
-{
-	int		len = (int)strlen(str);
-	uint8_t* buf, * sbuf;
-
-	if (len == 0 || len % 2 != 0)
-		return NULL;
-
-	sbuf = buf = (uint8_t*)malloc(len / 2);
-
-	while (*str)
-	{
-		signed char bh = hex_to_dec(*str++);
-		signed char bl = hex_to_dec(*str++);
-
-		if (bl == -1 || bh == -1)
-		{
-			free(sbuf);
-			return NULL;
-		}
-
-		*buf++ = (uint8_t)(bl | (bh << 4));
-	}
-
-	return sbuf;
-}
-
-bool hex_is_valid(const std::string& hex)
-{
-	if (hex.empty())
-		return false;
-	for (size_t i = 0, len = hex.length(); i < len; i++)
-	{
-		if (hex_to_dec(hex[i]) == -1)
-			return false;
-	}
-	return true;
-}
-
-D3DCOLOR hex_to_color(const char* str, int len)
-{
-	char buf[12];
-	strncpy_s(buf, str, len);
-	D3DCOLOR color = 0x00;
-	byte* colorByteSet = (byte*)&color;
-	int stri = 0;
-	for (int i = sizeof(color) - 1; i >= 0; i--)
-	{
-		if (i == 3 && len == 6)
-		{
-			colorByteSet[3] = 0xFF;
-		}
-		else
-		{
-			signed char bh = hex_to_dec(buf[stri++]);
-			signed char bl = hex_to_dec(buf[stri++]);
-			if (bh != -1 && bl != -1)
-			{
-				colorByteSet[i] = bl | (bh << 4);
-			}
-		}
-	}
-	return color;
-}
-
 void sampPatchDisableAnticheat(void)
 {
 	struct patch_set fuckAC =
@@ -201,7 +118,7 @@ void getSamp()
 
 		if (g_dwSAMP_Addr != NULL)
 		{
-			if (memcmp_safe((uint8_t*)g_dwSAMP_Addr + 0xBABE, hex_to_bin(SAMP_CMP03DL), 10))
+			if (memcmp_safe((uint8_t*)g_dwSAMP_Addr + 0xBABE, hex_to_bin("528D44240C508D7E09E8"), 10))
 				sampPatchDisableAnticheat();		
 			else
 				g_dwSAMP_Addr = NULL;
@@ -216,7 +133,7 @@ uint32_t getSampAddress()
 	uint32_t	samp_dll;
 
 
-	samp_dll = (uint32_t)LoadLibrary(SAMP_DLL);
+	samp_dll = (uint32_t)LoadLibrary("samp.dll");
 
 
 	return samp_dll;
@@ -616,7 +533,6 @@ void addMessage(int param, const char* text, ...)
 		vsnprintf(tmp, sizeof(tmp) - 1, text, ap);
 		va_end(ap);
 
-		//#9c252d kýrmýzý
 		char	buf[2048];
 		if (param == 0)
 		{
@@ -918,6 +834,82 @@ bool OnReceivePacket(Packet* p)
 	return true;
 }
 
+static signed char hex_to_dec(signed char ch)
+{
+	if (ch >= '0' && ch <= '9')
+		return ch - '0';
+	if (ch >= 'A' && ch <= 'F')
+		return ch - 'A' + 10;
+	if (ch >= 'a' && ch <= 'f')
+		return ch - 'A' + 10;
+
+	return -1;
+}
+
+uint8_t* hex_to_bin(const char* str)
+{
+	int		len = (int)strlen(str);
+	uint8_t* buf, * sbuf;
+
+	if (len == 0 || len % 2 != 0)
+		return NULL;
+
+	sbuf = buf = (uint8_t*)malloc(len / 2);
+
+	while (*str)
+	{
+		signed char bh = hex_to_dec(*str++);
+		signed char bl = hex_to_dec(*str++);
+
+		if (bl == -1 || bh == -1)
+		{
+			free(sbuf);
+			return NULL;
+		}
+
+		*buf++ = (uint8_t)(bl | (bh << 4));
+	}
+
+	return sbuf;
+}
+
+bool hex_is_valid(const std::string& hex)
+{
+	if (hex.empty())
+		return false;
+	for (size_t i = 0, len = hex.length(); i < len; i++)
+	{
+		if (hex_to_dec(hex[i]) == -1)
+			return false;
+	}
+	return true;
+}
+
+D3DCOLOR hex_to_color(const char* str, int len)
+{
+	char buf[12];
+	strncpy_s(buf, str, len);
+	D3DCOLOR color = 0x00;
+	byte* colorByteSet = (byte*)&color;
+	int stri = 0;
+	for (int i = sizeof(color) - 1; i >= 0; i--)
+	{
+		if (i == 3 && len == 6)
+		{
+			colorByteSet[3] = 0xFF;
+		}
+		else
+		{
+			signed char bh = hex_to_dec(buf[stri++]);
+			signed char bl = hex_to_dec(buf[stri++]);
+			if (bh != -1 && bl != -1)
+			{
+				colorByteSet[i] = bl | (bh << 4);
+			}
+		}
+	}
+	return color;
+}
 
 
 

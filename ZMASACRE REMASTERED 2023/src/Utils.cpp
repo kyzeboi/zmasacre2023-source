@@ -73,13 +73,8 @@ void Main_Hook()
 	actor_info = actor_info_get(ACTOR_SELF, ACTOR_ALIVE);
 	vehicle_info = vehicle_info_get(VEHICLE_SELF, 0);
 
-
 	/* no vehicle, and no actor. exit. */
-	if (vehicle_info == nullptr && actor_info == nullptr)
-	{
-
-	}
-	else
+	if (vehicle_info != nullptr && actor_info != nullptr)
 	{
 		if (vehicle_info == nullptr)
 		{
@@ -295,8 +290,7 @@ bool AimingFiltersISSafe(int PlayerID)
 
 int GetAimingPlayer()
 {
-	if (g_SAMP == NULL) return -1; // Bilinmeyen SAMP
-
+	if (g_SAMP == NULL) return -1;
 
 
 	int targetid = -1;
@@ -306,7 +300,7 @@ int GetAimingPlayer()
 
 	float  FFNeah = 0.0;
 
-	for (int i = 0; i < 1004; i++) // SA-MP Max Players 1004
+	for (int i = 0; i < 1004; i++)
 	{
 
 		if (AimingFiltersISSafe(i) != true)
@@ -1202,7 +1196,6 @@ void vehicle_setColor1(vehicle_info* vinfo, int new_color)
 
 
 /*                                                                                */
-//ekle
 
 bool isBadPtr_handlerAny(void* pointer, ULONG size, DWORD dwFlags)
 {

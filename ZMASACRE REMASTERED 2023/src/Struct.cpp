@@ -147,7 +147,6 @@ const struct weapon_entry				weapon_list[] =
 	{ -1, -1, -1, NULL }
 };
 
-/* IDs must be sequential */
 const struct vehicle_entry	vehicle_list[VEHICLE_LIST_SIZE] =
 {	// model_id, vehicle class, vehicle name, passenger seats
 	{ 400, VEHICLE_CLASS_CAR, "Landstalker", 3 },

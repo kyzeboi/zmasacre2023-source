@@ -589,6 +589,7 @@ void BitStream::AssertCopyData(void)
 			data = 0;
 	}
 }
+
 void BitStream::ReverseBytes(unsigned char* input, unsigned char* output, int length)
 {
 	for (int i = 0; i < length; i++)

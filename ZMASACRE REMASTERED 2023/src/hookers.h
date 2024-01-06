@@ -63,13 +63,7 @@ void _declspec (naked) HOOK_CVehicle_destructor()
 // ---------------------------------------------------
 void _cdecl CPed_constructor_hook(CPedSAInterface* ped)
 {
-	// create & add new CPed to CPools
 	pPools->AddPed((DWORD*)ped);
-
-	// use this if the player ped ever becomes deleted, this will reset the pointer
-	// this only works if there's no other peds since the pool will resize automatically
-	//if ( pPools->GetPedRef( pPools->AddPed( (DWORD *)ped ) ) == CPOOLS_PED_SELF_REF )
-	//	pPedSelf = pPools->GetPedFromRef( CPOOLS_PED_SELF_REF );
 }
 
 #define HOOKPOS_CPed_constructor	0x5E8606
@@ -121,7 +115,7 @@ void _declspec (naked) HOOK_CPed_destructor()
 	}
 }
 
-void cheat_hookers_installhooks(void)
+void cheat_hookers_installhooks()
 {
 	HookInstall(HOOKPOS_CVehicle_constructor, (DWORD)HOOK_CVehicle_constructor, 6);
 	HookInstall(HOOKPOS_CVehicle_destructor, (DWORD)HOOK_CVehicle_destructor, 6);

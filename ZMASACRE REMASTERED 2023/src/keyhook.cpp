@@ -12,7 +12,6 @@ static HWND			orig_wnd;
 
 struct key_state	key_table[256];
 int					keys_cleared;
-int					key_being_pressed;
 
 static void process_key(int down, int vkey, int repeat, int scancode, int extended, HWND wnd)
 {
@@ -67,7 +66,6 @@ static LRESULT CALLBACK wnd_proc(HWND wnd, UINT umsg, WPARAM wparam, LPARAM lpar
 		unsigned long	p = (unsigned long)lparam;
 		int				down = (umsg == WM_KEYDOWN || umsg == WM_SYSKEYDOWN);
 		int				vkey = (int)wparam;
-		key_being_pressed = vkey;
 
 		unsigned int	repeat = (p >> 0) & 0x7FFF;
 		unsigned int	scancode = (p >> 16) & 0x00FF;

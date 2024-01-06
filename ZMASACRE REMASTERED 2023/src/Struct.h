@@ -8,7 +8,6 @@
 
 #define								IMGUI_KEY					VK_F2
 #define								HAKÝMRENK					D3DCOLOR_XRGB(143, 11, 11)
-#define								FILEVERSION					"BETA=0.3"
 
 #define								ACTOR_STATE_DRIVING			50
 #define								ACTOR_STATE_DYING			54
@@ -23,6 +22,7 @@
 
 #define								ACTOR_POINTER_SELF			0x00B7CD98
 #define								ACTOR_SELF					-1
+
 #define								VEHICLE_POINTER_SELF		0x00B6F980
 #define								VEHICLE_SELF				- 1
 
@@ -646,6 +646,30 @@ struct interiors
 	const char* interior_name;
 };
 
+struct patch_chunk
+{
+	uint32_t	len;			/* length of data @ ptr */
+	void* ptr;			/* ptr to data */
+	uint8_t* data_cmp;		/* compare data against this */
+	uint8_t* data_rep;		/* replacement data @ ptr, if NULL NOPs are used */
+	uint8_t* data_orig;		/* original data @ ptr */
+	int			is_volatile;
+};
+
+struct patch_set
+{
+	const char* name;
+	int					initialized;
+	int					installed;
+	struct patch_chunk	chunk[PATCHER_CHUNKS_MAX];
+	int					failed; /* set if patcher_4nstalled() failed to initialize; reset on patcher_remove() */
+	int					has_volatile;
+
+	/* these don't really belong here... but oh well. */
+	int					ini_auto;	/* automatically enable patch; only used by the ini parser */
+	int					ini_hotkey; /* hotkey for this patch; only used by the ini parser */
+};
+
 class CSecure
 {
 public:
@@ -793,31 +817,6 @@ namespace SAMP
 
 	bool readServerData(const char* cmdline, ServerData& data);
 }
-
-struct patch_chunk
-{
-	uint32_t	len;			/* length of data @ ptr */
-	void* ptr;			/* ptr to data */
-	uint8_t* data_cmp;		/* compare data against this */
-	uint8_t* data_rep;		/* replacement data @ ptr, if NULL NOPs are used */
-	uint8_t* data_orig;		/* original data @ ptr */
-	int			is_volatile;
-};
-
-struct patch_set
-{
-	const char* name;
-	int					initialized;
-	int					installed;
-	struct patch_chunk	chunk[PATCHER_CHUNKS_MAX];
-	int					failed; /* set if patcher_4nstalled() failed to initialize; reset on patcher_remove() */
-	int					has_volatile;
-
-	/* these don't really belong here... but oh well. */
-	int					ini_auto;	/* automatically enable patch; only used by the ini parser */
-	int					ini_hotkey; /* hotkey for this patch; only used by the ini parser */
-};
-
 
 // No Wanted Config
 extern int							aimedplayer;

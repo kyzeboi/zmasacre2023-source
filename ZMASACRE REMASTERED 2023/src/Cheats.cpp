@@ -22,11 +22,8 @@ bool playershowed;
 
 void renderPlayerT4gs(void)
 {
-	// don't run in the menu
 	if (gta_menu_active())
 		return;
-
-
 
 	if (render_player_t4gs)
 		sampPatchDisableNameTags(1);
@@ -39,28 +36,13 @@ void renderPlayerT4gs(void)
 	if (ÝmMenu->show)
 		return;
 
-
-	// don't run during certain samp events
 	if (g_dwSAMP_Addr && g_SAMP)
-	{
-
-		if (
-			// Scoreboard open?
-			(GetAsyncKeyState(VK_TAB) < 0)
-			|| g_Scoreboard->iIsEnabled
-			// F10 key down?
-			|| GetAsyncKeyState(VK_F10) < 0
-			)
-		{
+		if ((GetAsyncKeyState(VK_TAB) < 0)|| g_Scoreboard->iIsEnabled|| GetAsyncKeyState(VK_F10) < 0)
 			return;
-		}
-	}
 
-	// don't run if the CGameSA doesn't exist
 	if (!pGameInterface)
 		return;
 
-	// don't run if we don't exist
 	if (isBadPtr_GTA_pPed(pPedSelf))
 		return;
 
@@ -89,15 +71,9 @@ void renderPlayerT4gs(void)
 
 	// get our info
 	if (pPedSelf->GetVehicle())
-	{
-		// RC Vehicle Fix (Not showing names of recently streamed in players
 		ourPosition = *(pPedSelf->GetVehicle()->GetPosition());
-		// while being in a RC Vehicle)
-	}
 	else
-	{
 		ourPosition = pPedSelfSA->Placeable.matrix->vPos;
-	}
 
 	// get our scripting ID so we can exclude ourself
 	selfGTAID = (int)pPedSelf->GetArrayID();
@@ -395,10 +371,7 @@ void renderPlayerT4gs(void)
 		if (g_Players)
 			iSAMPID = translateGTASAMP_pedPool.iSAMPID[getPedGTAIDFromInterface((DWORD*)iterPed->GetPedInterface())];
 
-		// get Ped health
-		// works in single player, but SAMP maintains its own player health
-		//vh = iterPed->GetHealth();
-		// get samp health
+
 		stRemotePlayer* pPlayerR = g_SAMP->pPools->pPlayer->pRemotePlayer[iSAMPID];
 		if (g_Players)
 		{
@@ -413,14 +386,10 @@ void renderPlayerT4gs(void)
 				ping = pPlayerR->iPing;
 			}
 			else
-			{
-				// SA-MP running, but was not a remote player
 				continue;
-			}
 		}
 		else
 		{
-			// SA-MP not running or failed to initialize g_Players
 			vh = iterPed->GetHealth();
 			va = iterPed->GetArmor();
 			ping = pPlayerR->iPing;
@@ -467,7 +436,6 @@ void renderPlayerT4gs(void)
 		offY += 10.0f;
 
 
-		// this should also calculate the anti-aliasing top edge somehow
 		h = pD3DFontFixedSmall->DrawHeight() + 1;
 
 
@@ -611,20 +579,14 @@ void renderPlayerT4gs(void)
 
 		if (g_NewPatch.FriendDogrulama[iSAMPID] == false && g_NewPatch.DüsmanDogrulama[iSAMPID] == false)
 		{
-
-
 			h = pD3DFont->DrawHeight() - 1;
 			sprintf_s(buf, "{ededed}%s - ID: %d - Level: %d", getPlayerName(iSAMPID), iSAMPID, g_Players->pRemotePlayer[iSAMPID]->iScore);
 			pD3DFont->PrintShadow(g_playerTagInfo[iGTAID].tagPosition.fX, playerBaseY - h - 8.0f, D3DCOLOR_ARGB(255, 255, 255, 255), buf);
 		}
 
 
-
-
 		if (g_NewPatch.FriendID[iSAMPID] && g_NewPatch.FriendDogrulama[iSAMPID] && g_NewPatch.FriendName[iSAMPID] == getPlayerName(iSAMPID))
 		{
-
-
 			h = pD3DFont->DrawHeight() - 1;
 			sprintf_s(buf, "%s - ID: %d - Level: %d", getPlayerName(iSAMPID), iSAMPID, g_Players->pRemotePlayer[iSAMPID]->iScore);
 			pD3DFont->PrintShadow(g_playerTagInfo[iGTAID].tagPosition.fX, playerBaseY - h - 8.0f, /*D3DCOLOR_ARGB(255, 31, 206, 31)*/D3DCOLOR_ARGB(255, 000, 255, 000), buf);
@@ -686,7 +648,7 @@ void RenderSpecialFuncs()
 			}
 		}
 
-		if (autoaim) //geliþtirilecek
+		if (autoaim) //geliþtirilecek 06.01.2024.
 		{
 
 
@@ -733,11 +695,8 @@ void RenderSpecialFuncs()
 					D3DXVECTOR3 bone_screen_pos;
 					CalcScreenCoors(&bone_pos, &bone_screen_pos);
 
-					// check if the iter is culled or not
 					if (bone_screen_pos.z < 1.f)
 						break;
-
-
 
 					if (!max_up_val && !max_down_val &&
 						!max_left_val && !max_right_val)

@@ -340,9 +340,6 @@ void Set_Car_Health(int CarHealth)
 		SetHeath(info, CarHealth);
 		addMessage(1, "Araç caný deðiþtirildi.");
 	}
-
-
-
 }
 
 
@@ -367,9 +364,6 @@ void Reset_Car_Wiew()
 		FixWiew(info);
 		addMessage(1, "Araç görünümü sýfýrlandý.");
 	}
-
-
-
 }
 
 

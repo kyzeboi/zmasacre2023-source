@@ -44,4 +44,3 @@ bool						keyhook_keycombo_pressed(const keycombo& comb);
 bool						keyhook_keycombo_released(const keycombo& comb);
 
 extern struct key_state		key_table[256];
-extern int					key_being_pressed;
