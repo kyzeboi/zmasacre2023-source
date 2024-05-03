@@ -39,6 +39,7 @@ int init()
 void mainloop()
 {
 	if (init()) { pD3DHook = new CD3DHook(); }
+	//Lets Start
 }
 
 
